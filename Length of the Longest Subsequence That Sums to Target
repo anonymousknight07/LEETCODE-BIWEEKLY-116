@@ -1,0 +1,29 @@
+Length of the Longest Subsequence That Sums to Target
+
+Link to the question- 
+https://leetcode.com/contest/biweekly-contest-116/problems/length-of-the-longest-subsequence-that-sums-to-target/
+
+Question- 
+You are given a 0-indexed array of integers nums, and an integer target.
+Return the length of the longest subsequence of nums that sums up to target. If no such subsequence exists, return -1.
+A subsequence is an array that can be derived from another array by deleting some or no elements without changing the order of the remaining elements.
+
+Solution-
+
+class Solution {
+public:
+    int lengthOfLongestSubsequence(vector<int>& nums, int target) {
+    vector<int> resultArray(target + 1, -1);
+    resultArray[0] = 0;
+
+    for (int number : nums) {
+        for (int currentIndex = target; currentIndex >= number; currentIndex--) {
+            if (resultArray[currentIndex - number] != -1) {
+                resultArray[currentIndex] = max(resultArray[currentIndex], resultArray[currentIndex - number] + 1);
+            }
+        }
+    }
+
+    return resultArray[target];
+    }
+};
